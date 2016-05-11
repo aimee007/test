@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0; list-style:none; text-decoration:none;}
+.box{ width:400px; height:180px; position:relative; margin:100px auto; _overflow:hidden;-webkit-transform-style:preserve-3d;-webkit-transform:perspective(800px);}
+ li{ width:400px; height:200px; position:absolute; top:0; left:0;-webkit-transition:.5s all ease; opacity:0;}
+.next{ position:absolute; top:50px; left:50%; margin-left:30px; width:60px; height:30px; line-height:30px; text-align:center; background:#999;}
+.prev{ position:absolute; top:50px; left:50%; margin-left:-40px; width:60px; height:30px; line-height:30px; text-align:center; background:#999;}
+li img{ width:100%;}
+.cur{ opacity:1; z-index:4;}
+.l1{ opacity:1; -webkit-transform:translate(-220px,0) rotateY(70deg); z-index:2;}
+.l2{ opacity:0; -webkit-transform:translate(-260px,0) rotateY(70deg); z-index:1;}
+.r1{ opacity:1; -webkit-transform:translate(220px,0) rotateY(-70deg); z-index:2;}
+.r2{ opacity:0; -webkit-transform:translate(260px,0) rotateY(-70deg); z-index:1;}
+
+</style>
+<script>
+window.onload=function(){
+	var aLi=document.querySelectorAll('.box li');
+	var oPrev=document.querySelector('.prev');
+	var oNext=document.querySelector('.next');
+	var aClass=[];
+	var bOk=false;
+	for(var i=0; i<aLi.length; i++){
+		aClass[i]=aLi[i].className;
+	}
+	oNext.onclick=function(){
+		if(bOk)return;
+		bOk=true;
+		aClass.unshift(aClass.pop());
+		curGo();
+	};
+	oPrev.onclick=function(){
+		if(bOk)return;
+		bOk=true;
+		aClass.push(aClass.shift());
+		curGo();
+	};
+	function curGo(){
+		for(var i=0; i<aLi.length; i++){
+			aLi[i].className=aClass[i];
+		}
+		var oCur=document.querySelector('.cur');
+		function fnEnd(){
+			oCur.removeEventListener('transitionend',fnEnd,false);
+			bOk=false;
+			
+		}
+		oCur.addEventListener('transitionend',fnEnd,false);
+	}
+	
+	
+};
+</script>
+</head>
+
+<body>
+	<a class="next" href="javascript:;">></a>
+    <a class="prev" href="javascript:;"><</a>
+	<ul class="box">
+    	<li class="cur">
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/24.jpg" alt="" />
+        </li>
+        <li class="r1">
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/25.png" alt="" />
+        </li>
+        <li class="r2">
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/26.jpg" alt="" />
+        </li>
+        <li>
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/28.jpg" alt="" />
+        </li>
+        <li class="l2">
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/30.jpg" alt="" />
+        </li>
+        <li class="l1">
+        	<img src="file:///C|/Users/QDD/Desktop/HTML5/2016-5-10/img/31.jpg" alt="" />
+        </li>
+    </ul>
+</body>
+</html>
